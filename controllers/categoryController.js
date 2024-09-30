@@ -8,7 +8,7 @@ const categoryController = {
       const savedCategory = await newCategory.save();
       res.status(200).json(savedCategory);
     } catch (err) {
-      res.status(500).json(err);//HTTP REQUEST CODE
+      res.status(500).json(err);
     }
   },
 
@@ -47,7 +47,7 @@ updateCategory: async (req, res) => {
 //DELETE CATEGORY
 deleteCategory: async (req, res) => {
   try {
-    await Product.updateMany({ category: req.params.id }, { category: null });
+    await Product.deleteMany({ category: req.params.id });
     await Category.findByIdAndDelete(req.params.id);
     res.status(200).json("Deleted successfully!");
   } catch (err) {
