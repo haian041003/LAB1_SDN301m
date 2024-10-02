@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 const categoryRoute = require("./routes/category");
 const productRoute = require("./routes/product");
 const authRoute = require("./routes/auth");
-const { Account } = require("./model/model");
+const authMiddleware = require("./middleware/auth.middleware");
 
 dotenv.config();
 
@@ -23,21 +23,27 @@ app.use(cors());
 app.use(morgan("common"));
 
 //ROUTES
-app.use("/v1/category", categoryRoute);
-app.use("/v1/product", productRoute);
+app.use("/v1/category", authMiddleware, categoryRoute);
+app.use("/v1/product", authMiddleware, productRoute);
 app.use("/v1/auth", authRoute);
 
-const createAdminAccount = async () => {
-  const adminExists = await Account.findOne({ userName: "admin" });
-  if (!adminExists) {
-    const admin = new Account({ userName: "admin", password: "123456" });
-    await admin.save();
-    console.log("Admin account created");
-  }
-};
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 
-createAdminAccount();
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-app.listen(3000, () => {
-  console.log("Server is running...");
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
