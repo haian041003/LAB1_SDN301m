@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
 });
 
 const accountSchema = new mongoose.Schema({
-  userName: { type: String, required: true ,unique: true },
+  userName: { type: String, required: true },
   password: { type: String, required: true },
 });
 
