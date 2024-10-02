@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 const categoryRoute = require("./routes/category");
 const productRoute = require("./routes/product");
 const authRoute = require("./routes/auth");
-const authMiddleware = require("./middleware/auth.middleware");
+
 
 dotenv.config();
 
@@ -23,8 +23,8 @@ app.use(cors());
 app.use(morgan("common"));
 
 //ROUTES
-app.use("/v1/category", authMiddleware, categoryRoute);
-app.use("/v1/product", authMiddleware, productRoute);
+app.use("/v1/category", categoryRoute);
+app.use("/v1/product", productRoute);
 app.use("/v1/auth", authRoute);
 
 // catch 404 and forward to error handler
