@@ -59,3 +59,4 @@ deleteCategory: async (req, res) => {
 
 
 module.exports = categoryController;
+

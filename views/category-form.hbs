@@ -1,0 +1,26 @@
+<form id='category-form' class='p-6 bg-white w-full rounded-md shadow-md'>
+  <h2 class='text-2xl font-bold mb-6'> {{#if category}}Edit Category{{else}}Add New Category{{/if}}</h2>
+  <input type='hidden' name='id' value='{{category._id}}' />
+
+  <div class='mb-4'>
+    <label for='name' class='block text-sm font-medium text-gray-700'>Category Name</label>
+    <input
+      id='name'
+      name='name'
+      type='text'
+      value='{{category.name}}'
+      class='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+      required
+    />
+  </div>
+
+  <div class='flex justify-end'>
+    <button
+      type='submit'
+      id='modal-button-create'
+      class='px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+    >
+      {{#if category}}Update Category{{else}}Add Category{{/if}}
+    </button>
+  </div>
+</form>
